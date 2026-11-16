@@ -147,10 +147,10 @@ export default function InvoicePrintView() {
   // without spilling onto a 2nd page or leaving an awkward gap.
   // ==============================================================
   const itemCount = (invoice.items || []).length;
-  const autoSpacerHeight = Math.max(10, Math.min(160, 175 - (itemCount * 26)));
+  const autoSpacerHeight = Math.max(25, Math.min(530, 560 - (itemCount * 34)));
 
   return (
-    <div className="max-w-4xl mx-auto space-y-4 pb-16">
+    <div className="invoice-page-container max-w-4xl mx-auto space-y-4 pb-16">
       {/* Action Bar (Hidden during printing via @media print) */}
       <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 no-print">
         <button
@@ -215,30 +215,36 @@ export default function InvoicePrintView() {
       </div>
 
       {/* Screen Preview Desk Wrapper (Square, zero curvature, responsive full width fit) */}
-      <div className="no-print-wrapper bg-slate-200/90 p-1 sm:p-5 border border-slate-300 shadow-inner">
+      <div className="no-print-wrapper bg-slate-200/90 p-1 sm:p-5 border border-slate-300 shadow-inner overflow-x-auto">
         {/* ============================================================== */}
         {/* EXACT 1:1 REPLICA OF THE ABBAI MICRO ENGINEERING TAX INVOICE   */}
         {/* Primary Brand Green: #00B050 | Full Outer Border: 2px SQUARE   */}
         {/* Strictly Square Corners (borderRadius: 0px)                    */}
         {/* ============================================================== */}
         <div 
-          className="print-invoice-sheet bg-white mx-auto font-sans text-xs text-black shadow-2xl w-full max-w-[800px]"
+          id="invoice-print-area"
+          className="print-invoice-sheet bg-white mx-auto font-sans text-xs text-black shadow-2xl w-full"
           style={{
             width: '100%',
-            maxWidth: '800px',
+            maxWidth: '210mm',
+            minHeight: '286mm',
+            height: '286mm',
             border: '2px solid #000',
             borderRadius: '0px',
             boxSizing: 'border-box',
-            fontFamily: 'Arial, Helvetica, sans-serif'
+            fontFamily: 'Arial, Helvetica, sans-serif',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           }}
         >
           {/* ROW 1: TAX INVOICE */}
-          <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '12px', padding: '4px 0', borderBottom: '1.5px solid #000', borderRadius: '0px' }}>
+          <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: '12px', padding: '4px 0', borderBottom: '1.5px solid #000', borderRadius: '0px', flexShrink: 0 }}>
             TAX INVOICE
           </div>
 
           {/* ROW 2-6: ABBAI MICRO ENGINEERING COMPANY HEADER */}
-          <div style={{ textAlign: 'center', padding: '5px 4px', borderBottom: '1.5px solid #000', lineHeight: '1.3', borderRadius: '0px' }}>
+          <div style={{ textAlign: 'center', padding: '5px 4px', borderBottom: '1.5px solid #000', lineHeight: '1.3', borderRadius: '0px', flexShrink: 0 }}>
             <div style={{ color: '#00B050', fontWeight: '900', fontSize: '20px', letterSpacing: '0.5px' }}>
               ABBAI MICRO ENGINEERING
             </div>
@@ -257,7 +263,7 @@ export default function InvoicePrintView() {
           </div>
 
           {/* ROW 7-10: LABOUR / MATERIALS / COPY TABLE (All Empty Squares for Manual Checking with Pen) */}
-          <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', borderBottom: '1.5px solid #000', borderRadius: '0px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', borderBottom: '1.5px solid #000', borderRadius: '0px', flexShrink: 0 }}>
             {/* Left Column of Checkboxes */}
             <div style={{ borderRight: '1.5px solid #000' }}>
               {/* Labour Charges */}
@@ -305,7 +311,7 @@ export default function InvoicePrintView() {
           </div>
 
           {/* BILL TO & INVOICE NO / DATE SECTION */}
-          <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', borderBottom: '1.5px solid #000', borderRadius: '0px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', borderBottom: '1.5px solid #000', borderRadius: '0px', flexShrink: 0 }}>
             {/* Bill To Info */}
             <div style={{ padding: '6px 8px', borderRight: '1.5px solid #000', lineHeight: '1.4' }}>
               <div style={{ fontWeight: 'bold', fontSize: '11px', marginBottom: '2px' }}>Bill to:</div>
@@ -345,7 +351,7 @@ export default function InvoicePrintView() {
           </div>
 
           {/* GOODS & SERVICES TABLE */}
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', borderRadius: '0px' }}>
+          <table className="invoice-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', borderRadius: '0px', flex: '1 1 auto', height: '100%' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #000', fontWeight: 'bold', fontSize: '11px', height: '24px' }}>
                 <th style={{ padding: '4px 6px', width: showHsn ? '42%' : '57%', borderRight: '1.5px solid #000' }}>
@@ -394,7 +400,7 @@ export default function InvoicePrintView() {
               ))}
 
               {/* DYNAMIC AUTO-ADJUST SPACER ROW (Auto-absorbs gap to fit A4 page height) */}
-              <tr style={{ height: `${autoSpacerHeight}px` }}>
+              <tr className="spacer-row" style={{ height: `${autoSpacerHeight}px` }}>
                 <td style={{ borderRight: '1.5px solid #000' }}></td>
                 {showHsn && <td style={{ borderRight: '1.5px solid #000' }}></td>}
                 <td style={{ borderRight: '1.5px solid #000' }}></td>
@@ -465,9 +471,7 @@ export default function InvoicePrintView() {
             style={{ 
               display: 'grid', 
               gridTemplateColumns: '62% 38%',
-              minHeight: '120px',
-              borderRadius: '0px'
-            }}
+              minHeight: '120px', borderRadius: '0px', flexShrink: 0 }}
           >
             {/* Left Column: Bank Details & In Words (Separated by vertical line) */}
             <div 

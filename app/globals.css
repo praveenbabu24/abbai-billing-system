@@ -41,7 +41,10 @@ html {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 3mm 4mm 3mm 4mm;
+    margin: 4mm 5mm 4mm 5mm;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box !important;
   }
   html, body {
     background: white !important;
@@ -50,25 +53,30 @@ html {
     padding: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    max-height: 100% !important;
+    max-height: 289mm !important;
     overflow: hidden !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  .no-print {
+  main, .invoice-page-container, .no-print-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .no-print, header, nav, footer {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
   }
   .print-only {
     display: block !important;
-  }
-  .no-print-wrapper {
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    overflow: visible !important;
   }
   .print-invoice-sheet {
     box-shadow: none !important;
@@ -77,14 +85,30 @@ html {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
+    height: 286mm !important;
+    min-height: 286mm !important;
+    max-height: 286mm !important;
     border: 2px solid #000 !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     page-break-after: avoid !important;
     page-break-before: avoid !important;
+  }
+  .print-invoice-sheet table {
+    height: 100% !important;
+    flex: 1 1 auto !important;
+  }
+  .print-invoice-sheet .spacer-row {
+    height: 100% !important;
+  }
+  .print-invoice-sheet .spacer-row td {
+    height: 100% !important;
   }
 }
