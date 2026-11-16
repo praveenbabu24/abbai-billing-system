@@ -147,7 +147,7 @@ export default function InvoicePrintView() {
   // without spilling onto a 2nd page or leaving an awkward gap.
   // ==============================================================
   const itemCount = (invoice.items || []).length;
-  const autoSpacerHeight = Math.max(25, Math.min(380, 410 - (itemCount * 34)));
+  const autoSpacerHeight = Math.max(30, Math.min(460, 480 - (itemCount * 30)));
 
   return (
     <div className="invoice-page-container max-w-4xl mx-auto space-y-4 pb-16">
@@ -227,10 +227,14 @@ export default function InvoicePrintView() {
           style={{
             width: '100%',
             maxWidth: '210mm',
+            minHeight: '287mm',
             border: '2px solid #000',
             borderRadius: '0px',
             boxSizing: 'border-box',
             fontFamily: 'Arial, Helvetica, sans-serif',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           }}
         >
           {/* ROW 1: TAX INVOICE */}
@@ -346,7 +350,7 @@ export default function InvoicePrintView() {
           </div>
 
           {/* GOODS & SERVICES TABLE */}
-          <table className="invoice-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', borderRadius: '0px' }}>
+          <table className="invoice-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', borderRadius: '0px', flex: '1 1 auto' }}>
             <thead>
               <tr style={{ borderBottom: '1.5px solid #000', fontWeight: 'bold', fontSize: '11px', height: '24px' }}>
                 <th style={{ padding: '4px 6px', width: showHsn ? '42%' : '57%', borderRight: '1.5px solid #000' }}>
@@ -466,7 +470,7 @@ export default function InvoicePrintView() {
             style={{ 
               display: 'grid', 
               gridTemplateColumns: '62% 38%',
-              minHeight: '120px', borderRadius: '0px', pageBreakInside: 'avoid', breakInside: 'avoid' }}
+              minHeight: '120px', borderRadius: '0px', flexShrink: 0, pageBreakInside: 'avoid', breakInside: 'avoid' }}
           >
             {/* Left Column: Bank Details & In Words (Separated by vertical line) */}
             <div 

@@ -53,6 +53,7 @@ html {
     padding: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    max-height: 289mm !important;
     overflow: hidden !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -84,14 +85,29 @@ html {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
+    height: 287mm !important;
+    min-height: 287mm !important;
+    max-height: 287mm !important;
     border: 2px solid #000 !important;
     border-radius: 0 !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     page-break-after: avoid !important;
     page-break-before: avoid !important;
+  }
+  .print-invoice-sheet table {
+    flex: 1 1 auto !important;
+  }
+  .print-invoice-sheet .spacer-row {
+    height: 100% !important;
+  }
+  .print-invoice-sheet .spacer-row td {
+    height: 100% !important;
   }
 }
