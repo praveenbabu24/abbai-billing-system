@@ -1,0 +1,42 @@
+{
+  "legalName": "ABBAI MICRO ENGINEERING",
+  "proprietorName": "N. VENKATESH",
+  "gstin": "33OKZPS6415J1Z2",
+  "stateCode": "33",
+  "state": "Tamil Nadu",
+  "address": {
+    "line1": "34, Nethaji street, Govinthanayganpalayam",
+    "line2": "Athipalayam post",
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "pincode": "641110",
+    "country": "India"
+  },
+  "contact": {
+    "phones": [
+      "+91 92451 09454",
+      "+91 93605 67190"
+    ],
+    "email": "abbamicro@gmail.com"
+  },
+  "bankDetails": {
+    "bankName": "City Union Bank",
+    "accountNumber": "510909010164382",
+    "ifscCode": "CIUB0000410",
+    "accountHolder": "N.VENKATESH (Proprietor)",
+    "customerId": "6441973",
+    "chequePayableTo": "ABBAI MICRO ENGINEERING"
+  },
+  "taxDefaults": {
+    "intraState": {
+      "cgstRate": 9.0,
+      "sgstRate": 9.0,
+      "igstRate": 0.0
+    },
+    "interState": {
+      "cgstRate": 0.0,
+      "sgstRate": 0.0,
+      "igstRate": 18.0
+    }
+  }
+}
