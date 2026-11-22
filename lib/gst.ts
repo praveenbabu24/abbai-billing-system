@@ -119,9 +119,7 @@ export function calculateInvoiceTaxes({
   }
 
   const exactTotal = taxableAmount + cgstAmount + sgstAmount + igstAmount;
-  const roundedTotal = Math.round(exactTotal * 100) / 100;
-  const finalRounded = Math.round(roundedTotal);
-  const roundOff = Math.round((finalRounded - roundedTotal) * 100) / 100;
+  const finalTotal = Math.round(exactTotal * 100) / 100;
 
   return {
     taxableAmount,
@@ -132,9 +130,9 @@ export function calculateInvoiceTaxes({
     sgstAmount,
     igstRate,
     igstAmount,
-    totalTax: cgstAmount + sgstAmount + igstAmount,
-    roundOff,
-    totalAmount: finalRounded,
-    amountInWords: numberToWordsIndian(finalRounded),
+    totalTax: Math.round((cgstAmount + sgstAmount + igstAmount) * 100) / 100,
+    roundOff: 0,
+    totalAmount: finalTotal,
+    amountInWords: numberToWordsIndian(finalTotal),
   };
 }

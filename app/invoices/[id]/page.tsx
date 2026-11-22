@@ -122,11 +122,17 @@ export default function InvoicePrintView() {
   }
 
   const taxable = Number(invoice.taxableAmount || 0);
-  const cgst = Number(invoice.cgstAmount || (taxable * 0.09));
-  const sgst = Number(invoice.sgstAmount || (taxable * 0.09));
-  const igst = Number(invoice.igstAmount || 0);
-  const total = Number(invoice.totalAmount || (taxable + cgst + sgst + igst));
-  const inWords = invoice.amountInWords || numberToWordsIndian(total);
+  const cgst = Number(invoice.cgstAmount !== undefined ? invoice.cgstAmount : Math.round(taxable * 0.09 * 100) / 100);
+  const sgst = Number(invoice.sgstAmount !== undefined ? invoice.sgstAmount : Math.round(taxable * 0.09 * 100) / 100);
+  const igst = Number(invoice.igstAmount !== undefined ? invoice.igstAmount : 0);
+  // Keep exact total with decimal as it is without rounding off
+  const exactSum = Math.round((taxable + cgst + sgst + igst) * 100) / 100;
+  const total = (invoice.roundOff && invoice.roundOff !== 0)
+    ? exactSum
+    : (invoice.totalAmount !== undefined ? Number(invoice.totalAmount) : exactSum);
+  const inWords = (invoice.roundOff && invoice.roundOff !== 0)
+    ? numberToWordsIndian(total)
+    : (invoice.amountInWords || numberToWordsIndian(total));
 
   // Format date like 15-Oct-26
   let formattedDate = '15-Oct-26';
@@ -502,7 +508,7 @@ export default function InvoicePrintView() {
                   IFSC CODE: CIUB0000410
                 </div>
                 <div style={{ color: '#00B050', fontWeight: 'bold', fontSize: '10px' }}>
-                  NAME: N.VENKATESH (Proprietor)
+                  NAME: V.SUGUNA (Proprietor)
                 </div>
                 <div style={{ color: '#00B050', fontWeight: 'bold', fontSize: '10px' }}>
                   Customer ID : 6441973

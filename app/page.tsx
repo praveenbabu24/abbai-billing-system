@@ -440,7 +440,7 @@ export default function BillingTerminalPage() {
 
     const confirmed = await SweetAlert.confirm(
       'Generate Tax Invoice?',
-      `Confirm creating invoice ${invoiceNo} for ${buyerName} totaling ₹${taxSummary.totalAmount.toLocaleString('en-IN')}?`,
+      `Confirm creating invoice ${invoiceNo} for ${buyerName} totaling ₹${taxSummary.totalAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}?`,
       'Yes, Generate & Print'
     );
 
